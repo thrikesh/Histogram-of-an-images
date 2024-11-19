@@ -35,44 +35,50 @@ from matplotlib import pyplot as plt
 # Load the color image
 image = cv2.imread('ajith.jpg')
 
-# Convert the image to grayscale
-gray_image = c
-v2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-plt.imshow(gray_image, cmap='gray')
-plt.title('Original Grayscale Image')
+# Display the image using Matplotlib
+plt.imshow(image_rgb)
 plt.axis('off')
+plt.title("Color Image")
+plt.show()
 
-hist_original = cv2.calcHist([gray_image], [0], None, [256], [0, 256])
+hist_original = cv2.calcHist([image_rgb], [0], None, [256], [0, 256])
 
-# Apply histogram equalization
-equalized_image = cv2.equalizeHist(gray_image)
+# Convert BGR to YUV
+image_yuv = cv2.cvtColor(image, cv2.COLOR_BGR2YUV)
 
-plt.imshow(equalized_image, cmap='gray')
-plt.title('Equalized Image')
-plt.axis('off')
+# Equalize the histogram of the Y channel
+image_yuv[:, :, 0] = cv2.equalizeHist(image_yuv[:, :, 0])
 
-hist_equalized = cv2.calcHist([equalized_image], [0], None, [256], [0, 256])
+# Convert YUV back to BGR
+equalized_image = cv2.cvtColor(image_yuv, cv2.COLOR_YUV2BGR)
 
-plt.plot(hist_equalized, color='black')
-plt.title('Equalized Histogram')
+plt.plot(hist_original, color='black')
+plt.title('Original Histogram')
 plt.xlim([0, 256])
 
+hist_equalized = cv2.calcHist([equalized_image], [0], None, [256], [0, 256])
+plt.plot(hist_equalized, color='black')
+plt.title('Equalized Histogram')
 
 
 ```
 ## Output:
-### Input Grayscale Image and Color Image
-![image](https://github.com/user-attachments/assets/36267167-851f-47bd-ade9-324c8a249f87)
-
-
-### Histogram of Grayscale Image and any channel of Color Image
-![image](https://github.com/user-attachments/assets/67dd3460-dccf-4adc-ba3d-db59c79accea)
+### Input Color Image
+![image](https://github.com/user-attachments/assets/d07333d5-7ac4-4a34-b835-a3f82d0d1f38)
 
 
 
-### Histogram Equalization of Grayscale Image.
-![image](https://github.com/user-attachments/assets/55d7a964-3a51-43b1-84f4-4986fc3df14e)
+### Histogram of any channel of Color Image
+![image](https://github.com/user-attachments/assets/f787eef9-165c-4b2a-b94c-244ef86364aa)
+
+
+
+
+### Histogram Equalization of Color Image.
+![image](https://github.com/user-attachments/assets/bb8e1ef1-750d-4f94-abd6-efc99d0e25e2)
+
 
 
 
