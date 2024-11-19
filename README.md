@@ -62,6 +62,10 @@ hist_equalized = cv2.calcHist([equalized_image], [0], None, [256], [0, 256])
 plt.plot(hist_equalized, color='black')
 plt.title('Equalized Histogram')
 
+plt.imshow(equalized_image)
+plt.title('Equalized Image')
+plt.axis('off')
+
 
 ```
 ## Output:
@@ -79,6 +83,8 @@ plt.title('Equalized Histogram')
 ### Histogram Equalization of Color Image.
 ![image](https://github.com/user-attachments/assets/bb8e1ef1-750d-4f94-abd6-efc99d0e25e2)
 
+### Input Color Image after Equalization
+![image](https://github.com/user-attachments/assets/765e85fb-044b-4b03-83ea-a17aff04d92f)
 
 
 
